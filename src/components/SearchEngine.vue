@@ -3,7 +3,9 @@
     <div class="search-engine--input">
       <search-bar v-model="value" @input="search" />
     </div>
-    {{ books }}
+    <div class="search-engine--results">
+      {{ books }}
+    </div>
   </div>
 </template>
 
@@ -21,6 +23,7 @@ export default {
       value: "",
       mode: "everything",
       limit: 30,
+      loading: false,
     };
   },
   created() {
