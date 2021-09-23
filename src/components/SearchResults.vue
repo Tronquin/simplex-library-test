@@ -23,12 +23,12 @@
 
 <script>
 import BookCard from "./BookCard.vue";
-import Pagination from "./Pagination.vue";
+import pagination from "./pagination.vue";
 export default {
   name: "SearchResults",
   components: {
     BookCard,
-    Pagination,
+    pagination,
   },
   props: {
     response: Object,
