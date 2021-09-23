@@ -1,5 +1,5 @@
 <template>
-  <div class="results">
+  <div class="results" v-if="books.length > 0">
     <div class="results--container">
       <div v-for="book in books" :key="book.id">
         <book-card :book="book" />
@@ -13,6 +13,11 @@
         @onPageChange="pageChange"
       />
     </div>
+  </div>
+  <div v-else>
+    <v-card width="100%" class="pa-10 text-center text-h4">
+      <h2>Search For Some Amazing Books!</h2>
+    </v-card>
   </div>
 </template>
 
