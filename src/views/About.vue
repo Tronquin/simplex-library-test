@@ -1,5 +1,19 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    {{ book }}
   </div>
 </template>
+
+<script>
+export default {
+  name: "about",
+  data() {
+    return { book: {} };
+  },
+  created() {
+    this.book = this.$route.params.book;
+  },
+};
+</script>
+
+<style></style>
