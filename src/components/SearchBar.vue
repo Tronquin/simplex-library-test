@@ -1,23 +1,22 @@
 <template>
-  <v-form>
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="12" class="pa-0">
-          <v-text-field
-            @input="updateInternalValue"
-            :type="type"
-            :value="internalValue"
-            :rules="rules"
-            counter="100"
-            hint="Type author: to search by Author or title: to search by Title"
-            label="Search"
-            solo
-            clearable
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
+  <v-container>
+    <v-row>
+      <v-col cols="12" sm="12" class="pa-0">
+        <v-text-field
+          @input="updateInternalValue"
+          :type="type"
+          :value="internalValue"
+          :rules="rules"
+          :disabled="disabled"
+          counter="100"
+          hint="Type author: to search by Author or title: to search by Title"
+          label="Search"
+          solo
+          clearable
+        ></v-text-field>
+      </v-col>
+    </v-row>
+  </v-container>
 
   <!--
   <input :type="type" :value="internalValue" @input="updateInternalValue" />
@@ -26,6 +25,7 @@
 
 <script>
 import _debounce from "lodash/debounce";
+import http from "../http-client";
 
 export default {
   props: {
@@ -36,10 +36,22 @@ export default {
     return {
       internalValue: this.value || "",
       touched: false,
+      disabled: false,
       rules: [
-        (v) => (v.length >= 0 && v.length <= 100) || "Max 100 characters",
+        (v) => (v && v.length >= 0 && v.length <= 100) || "Max 100 characters",
       ],
     };
+  },
+  created() {
+    http.interceptors.request.use((config) => {
+      this.disabled = true;
+      return config;
+    });
+
+    http.interceptors.response.use((response) => {
+      this.disabled = false;
+      return response;
+    });
   },
   watch: {
     value(value) {

@@ -1,15 +1,34 @@
 <template>
-  <div class="loading-spinner">
+  <div class="loading-spinner" :loading="loading" v-if="loading">
     <spinner :size="75" :depth="10" color="#F9EC31"></spinner>
   </div>
 </template>
 
 <script>
 import Spinner from "vue-spinner-component/src/Spinner.vue";
+import http from "../http-client";
 
 export default {
   components: {
     Spinner,
+  },
+  data() {
+    return {
+      loading: false,
+    };
+  },
+  created() {
+    // before a request is made start the nprogress
+    http.interceptors.request.use((config) => {
+      this.loading = true;
+      return config;
+    });
+
+    // before a response is returned stop nprogress
+    http.interceptors.response.use((response) => {
+      this.loading = false;
+      return response;
+    });
   },
 };
 </script>

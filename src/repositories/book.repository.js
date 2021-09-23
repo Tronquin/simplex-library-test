@@ -4,7 +4,7 @@ const resource = "/search.json";
 export default {
   getByQuery(query, limit = 30, mode = "everything") {
     const params = new URLSearchParams({
-      q: query,
+      q: query || "",
       limit: limit,
       mode: mode, //everything, ebooks, printdisabled
     });
@@ -13,7 +13,7 @@ export default {
 
   getByAuthor(query, limit = 30, mode = "everything") {
     const params = new URLSearchParams({
-      author: query,
+      author: query || "",
       limit: limit,
       mode: mode, //everything, ebooks, printdisabled
     });
@@ -23,8 +23,19 @@ export default {
 
   getByTitle(query, limit = 30, mode = "everything") {
     const params = new URLSearchParams({
-      title: query,
+      title: query || "",
       limit: limit,
+      mode: mode, //everything, ebooks, printdisabled
+    });
+
+    return http.get(`${resource}?${params}`);
+  },
+
+  getByPage(query, page, limit = 30, mode = "everything") {
+    const params = new URLSearchParams({
+      q: query || "",
+      limit: limit,
+      page: page,
       mode: mode, //everything, ebooks, printdisabled
     });
 
