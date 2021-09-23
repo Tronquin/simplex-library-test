@@ -19,16 +19,26 @@ export default {
   },
   created() {
     // before a request is made start the nprogress
-    http.interceptors.request.use((config) => {
-      this.loading = true;
-      return config;
-    });
+    http.interceptors.request.use(
+      (config) => {
+        this.loading = true;
+        return config;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
 
     // before a response is returned stop nprogress
-    http.interceptors.response.use((response) => {
-      this.loading = false;
-      return response;
-    });
+    http.interceptors.response.use(
+      (response) => {
+        this.loading = false;
+        return response;
+      },
+      () => {
+        this.loading = false;
+      }
+    );
   },
 };
 </script>

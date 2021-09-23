@@ -10,13 +10,15 @@
       <router-view />
     </v-main>
     <spinner />
+    <toast-notifications />
   </v-app>
 </template>
 
 <script>
 import Spinner from "./components/Spinner.vue";
+import ToastNotifications from "./components/ToastNotifications.vue";
 export default {
-  components: { Spinner },
+  components: { Spinner, ToastNotifications },
   name: "App",
 
   data: () => ({}),

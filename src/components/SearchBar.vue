@@ -1,26 +1,24 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12" sm="12" class="pa-0">
-        <v-text-field
-          @input="updateInternalValue"
-          :type="type"
-          :value="internalValue"
-          :rules="rules"
-          :disabled="disabled"
-          counter="100"
-          hint="Type author: to search by Author or title: to search by Title"
-          label="Search"
-          solo
-          clearable
-        ></v-text-field>
-      </v-col>
-    </v-row>
-  </v-container>
-
-  <!--
-  <input :type="type" :value="internalValue" @input="updateInternalValue" />
-  -->
+  <v-form @submit.prevent="updateInternalValueSubmit">
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="12" class="pa-0">
+          <v-text-field
+            @input="updateInternalValue"
+            :type="type"
+            :value="internalValue"
+            :rules="rules"
+            :disabled="disabled"
+            counter="100"
+            hint="Type author: to search by Author or title: to search by Title"
+            label="Search"
+            solo
+            clearable
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -62,6 +60,10 @@ export default {
     updateInternalValue(value) {
       this.touched = true;
       this.updateValue(value);
+    },
+    updateInternalValueSubmit(e) {
+      this.touched = true;
+      this.updateValue(e.target.querySelector("input").value); //PLZ Don't ever do this, god forgive me for I have sinned
     },
     updateValue: _debounce(function (value) {
       this.touched = false;

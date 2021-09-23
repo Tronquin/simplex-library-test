@@ -5,6 +5,11 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
+import Toasted from "vue-toasted";
+Vue.use(Toasted, {
+  duration: 1500,
+});
+
 new Vue({
   router,
   vuetify,

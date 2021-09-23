@@ -29,7 +29,6 @@ export default {
       return this.finds;
     },
     currentPage() {
-      console.log(this.currentPage);
       return this.currentPage;
     },
     paginationLength() {

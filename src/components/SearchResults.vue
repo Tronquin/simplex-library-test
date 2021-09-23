@@ -1,7 +1,7 @@
 <template>
   <div class="results">
     <div class="results--container">
-      <div v-for="book in docs" :key="book.id">
+      <div v-for="book in books" :key="book.id">
         <book-card :book="book" />
       </div>
     </div>
@@ -26,7 +26,7 @@ export default {
     Pagination,
   },
   props: {
-    docs: Array,
+    response: Object,
     finds: Number,
     limit: Number,
   },
@@ -37,9 +37,9 @@ export default {
     };
   },
   watch: {
-    docs() {
-      this.books = [...this.docs];
-      return [...this.docs];
+    response() {
+      this.books = this.response.docs ? [...this.response.docs] : [];
+      return this.response.docs ? [...this.response.docs] : [];
     },
     finds() {
       return this.finds;

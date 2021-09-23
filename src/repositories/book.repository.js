@@ -13,21 +13,19 @@ export default {
 
   getByAuthor(query, limit = 30, mode = "everything") {
     const params = new URLSearchParams({
-      author: query || "",
+      q: query || "",
       limit: limit,
       mode: mode, //everything, ebooks, printdisabled
     });
-
     return http.get(`${resource}?${params}`);
   },
 
   getByTitle(query, limit = 30, mode = "everything") {
     const params = new URLSearchParams({
-      title: query || "",
+      q: query || "",
       limit: limit,
       mode: mode, //everything, ebooks, printdisabled
     });
-
     return http.get(`${resource}?${params}`);
   },
 
