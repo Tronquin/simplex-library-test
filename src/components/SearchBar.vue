@@ -41,15 +41,25 @@ export default {
     };
   },
   created() {
-    http.interceptors.request.use((config) => {
-      this.disabled = true;
-      return config;
-    });
+    http.interceptors.request.use(
+      (config) => {
+        this.disabled = true;
+        return config;
+      },
+      () => {
+        this.disabled = false;
+      }
+    );
 
-    http.interceptors.response.use((response) => {
-      this.disabled = false;
-      return response;
-    });
+    http.interceptors.response.use(
+      (response) => {
+        this.disabled = false;
+        return response;
+      },
+      () => {
+        this.disabled = false;
+      }
+    );
   },
   watch: {
     value(value) {

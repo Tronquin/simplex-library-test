@@ -1,6 +1,8 @@
 <template>
   <div class="about">
-    {{ book }}
+    <v-layout>
+      {{ book }}
+    </v-layout>
   </div>
 </template>
 

@@ -7,7 +7,9 @@ Vue.config.productionTip = false;
 
 import Toasted from "vue-toasted";
 Vue.use(Toasted, {
-  duration: 1500,
+  theme: "bubble",
+  position: "bottom-right",
+  duration: 5000,
 });
 
 new Vue({

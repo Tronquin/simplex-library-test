@@ -1,5 +1,5 @@
 <template>
-  <div class="search-engine">
+  <div class="search-engine pa-4">
     <div class="search-engine--bar">
       <search-bar v-model="value" @input="search($event)" />
     </div>
@@ -40,18 +40,10 @@ export default {
           this.mode
         );
         this.books = data;
-        this.$toasted.success("Success!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.triggerNotifications(this.books.numFound);
       } catch (error) {
         this.books = {};
-        this.$toasted.error("An Error Has Ocurred!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.$toasted.error("An Error Has Ocurred!");
       }
     },
     getBooksByPage: async function (page) {
@@ -63,18 +55,10 @@ export default {
           this.mode
         );
         this.books = data;
-        this.$toasted.success("Success!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.triggerNotifications(this.books.numFound);
       } catch (error) {
         this.books = {};
-        this.$toasted.error("An Error Has Ocurred!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.$toasted.error("An Error Has Ocurred!");
       }
     },
     getBooksByAuthor: async function () {
@@ -85,18 +69,10 @@ export default {
           this.mode
         );
         this.books = data;
-        this.$toasted.success("Success!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.triggerNotifications(this.books.numFound);
       } catch (error) {
         this.books = {};
-        this.$toasted.error("An Error Has Ocurred!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.$toasted.error("An Error Has Ocurred!");
       }
     },
     getBooksByTitle: async function () {
@@ -107,27 +83,28 @@ export default {
           this.mode
         );
         this.books = data;
-        this.$toasted.success("Success!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.triggerNotifications(this.books.numFound);
       } catch (error) {
         this.books = {};
-        this.$toasted.error("An Error Has Ocurred!", {
-          theme: "bubble",
-          position: "bottom-right",
-          duration: 5000,
-        });
+        this.$toasted.error("An Error Has Ocurred!");
       }
     },
     search: function () {
-      if (this.value.startsWith("author:")) {
-        this.getBooksByAuthor(this.value.split("author:")[1]);
-      } else if (this.value.startsWith("title:")) {
-        this.getBooksByTitle(this.value.split("title:")[1]);
+      if (this.value) {
+        if (this.value.startsWith("author:")) {
+          this.getBooksByAuthor(this.value.split("author:")[1]);
+        } else if (this.value.startsWith("title:")) {
+          this.getBooksByTitle(this.value.split("title:")[1]);
+        } else {
+          this.getBooks(this.value);
+        }
+      }
+    },
+    triggerNotifications(numFound = 0) {
+      if (numFound > 0) {
+        this.$toasted.success("Success!");
       } else {
-        this.getBooks(this.value);
+        this.$toasted.show("No Results");
       }
     },
   },
