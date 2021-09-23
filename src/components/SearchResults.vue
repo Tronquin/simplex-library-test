@@ -18,7 +18,7 @@
 
 <script>
 import BookCard from "./BookCard.vue";
-import Pagination from "./pagination.vue";
+import Pagination from "./Pagination.vue";
 export default {
   name: "SearchResults",
   components: {
