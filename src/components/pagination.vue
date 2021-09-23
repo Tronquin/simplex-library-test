@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "pagination",
+  name: "Pagination",
   props: {
     finds: Number,
     currentPage: Number,
